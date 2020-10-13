@@ -7,7 +7,7 @@ const QuizProvider = ({ children }) => {
 
   return (
     <QuizContext.Provider value={{ currentGame, setCurrentGame }}>
-        {children}
+      {children}
     </QuizContext.Provider>
   );
 };

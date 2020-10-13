@@ -8,4 +8,5 @@ body {
   -moz-osx-font-smoothing: grayscale;
   display: grid;
   place-items: center;
+  height: 100vh;
 }
