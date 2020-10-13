@@ -41,6 +41,7 @@ const QuizSetupScreen = ({ setCurrentGame }) => {
   }
   function handleSubmit(e) {
     e.preventDefault();
+    console.log(username);
     if (username.trim() !== "") {
       setCurrentGame({
         difficulty: difficulty,
