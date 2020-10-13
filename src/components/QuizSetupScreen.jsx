@@ -38,7 +38,7 @@ const QuizSetupScreen = () => {
     });
   }
   return (
-    <section>
+    <Container>
       <h1>SETUP YOUR QUIZ</h1>
       <div>
         <label htmlFor="">WHAT'S YOUR NAME?</label>
@@ -60,11 +60,13 @@ const QuizSetupScreen = () => {
           {renderDropDown()}
         </DropDown>
       </div>
-    </section>
+    </Container>
   );
 };
 
 export default QuizSetupScreen;
+
+const Container = styled.section``;
 
 const OpenDropDownBtn = styled.button`
   padding: 1rem 2rem;
