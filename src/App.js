@@ -13,7 +13,7 @@ function App() {
   const transitions = useTransition(location, location => location.pathname, {
     from: { opacity: 0, transform: 'translateX(100%)' },
     enter: { opacity: 1, transform: 'translateX(0%)' },
-    leave: { opacity: 0, transform: 'translateX(-50%)' },
+    leave: { opacity: 0, transform: 'translateX(-100%)' },
   })
 
   return (
