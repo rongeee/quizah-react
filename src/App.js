@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import "./App.css";
 import StartScreen from "./components/StartScreen";
 import { QuizContext } from "./provider/QuizProvider";
 import { Switch, Route } from "react-router-dom";
