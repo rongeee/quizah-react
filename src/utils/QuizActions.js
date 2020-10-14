@@ -1,5 +1,5 @@
 export const fetchQuestions = (diff) => {
-  const url = `https://opentdb.com/api.php?amount=10&difficulty=${diff}&type=multiple`;
+  const url = `https://opentdb.com/api.php?amount=10&difficulty=${diff}&type=multiple"`;
 
   return fetch(url)
 }
