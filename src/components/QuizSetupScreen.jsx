@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const difficulties = [
@@ -13,12 +14,13 @@ const difficulties = [
   }
 ];
 
-const QuizSetupScreen = () => {
+const QuizSetupScreen = ({ setCurrentGame }) => {
   const [username, setUsername] = useState("");
   const [difficulty, setDifficulty] = useState("EASY");
   const [dropDownState, setDropDownState] = useState("closed");
-
-  function openDropdown() {
+  const history = useHistory();
+  function openDropdown(e) {
+    e.preventDefault();
     if (dropDownState === "closed") {
       setDropDownState("open");
     } else {
@@ -37,42 +39,104 @@ const QuizSetupScreen = () => {
       );
     });
   }
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(username);
+    if (username.trim() !== "") {
+      setCurrentGame({
+        difficulty: difficulty,
+        username: username,
+        points: 0,
+        questions: []
+      });
+      history.push("/quiz");
+    } else {
+      alert("longer name pls");
+    }
+  }
   return (
-    <Container>
+    <div>
       <h1>SETUP YOUR QUIZ</h1>
-      <div>
-        <label htmlFor="">WHAT'S YOUR NAME?</label>
-        <input
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          type="text"
-        />
-      </div>
-      <div>
-        <label htmlFor="">CHOOSE YOUR DIFFICULTY!</label>
-        <OpenDropDownBtn onClick={openDropdown}>
-          {difficulty}
-          <DDArrow open={dropDownState}>
-            <i className="fas fa-angle-down"></i>
-          </DDArrow>
-        </OpenDropDownBtn>
-        <DropDown open={dropDownState} onClick={openDropdown}>
-          {renderDropDown()}
-        </DropDown>
-      </div>
-    </Container>
+      <Container>
+        <UsernameContainer>
+          <div className="sub-title">WHAT'S YOUR NAME?</div>
+          <input
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            type="text"
+          />
+        </UsernameContainer>
+        <div>
+          <div className="sub-title">CHOOSE YOUR DIFFICULTY!</div>
+          <OpenDropDownBtn onClick={openDropdown}>
+            {difficulty}
+            <DDArrow open={dropDownState}>
+              <i className="fas fa-angle-down"></i>
+            </DDArrow>
+          </OpenDropDownBtn>
+          <DropDown open={dropDownState} onClick={openDropdown}>
+            {renderDropDown()}
+          </DropDown>
+        </div>
+        <SubmitBtn onClick={handleSubmit} type="submit">
+          GO!
+        </SubmitBtn>
+      </Container>
+    </div>
   );
 };
 
 export default QuizSetupScreen;
 
-const Container = styled.section``;
+const Container = styled.form`
+  & > * {
+    width: 100%;
+  }
 
-const OpenDropDownBtn = styled.button`
-  padding: 1rem 2rem;
-  display: block;
-  margin-bottom: 1rem;
+  input {
+    border: none;
+    color: white;
+    background-color: #86919a;
+    padding: 15px;
+    font-size: 18px;
+    font-family: inherit;
+    text-transform: uppercase;
+  }
+  .sub-title {
+    margin: 0.75rem 0;
+    font-weight: bold;
+  }
+`;
+const UsernameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const SubmitBtn = styled.button`
+  background-color: #5aafee;
+  padding: 1em;
+  border-radius: 5px;
+  outline: none;
   cursor: pointer;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  color: white;
+  border: none;
+  margin-top: 1rem;
+`;
+const OpenDropDownBtn = styled.button`
+  padding: 1rem;
+  display: block;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  text-align: left;
+  justify-content: space-between;
+  background-color: #86919a;
+  border: none;
+  color: white;
 `;
 
 const DropDown = styled.div`
@@ -85,13 +149,13 @@ const DropDown = styled.div`
 
 const DropDownItem = styled.div`
   padding: 0.5rem 1rem;
-  margin-bottom: 2px;
-  border-left: 1px solid black;
   cursor: pointer;
+  background-color: #86919a;
+  border: none;
+  color: white;
 
   &:hover {
-    background: black;
-    color: white;
+    background: #5aafee;
   }
 `;
 const DDArrow = styled.span`
